@@ -19,7 +19,7 @@ Build mode: fast
   Learner check: Open `/dashboard`, upload the sample CSV, see 5 missions, reload, and confirm they're still there.
   Commit: `Add scaffold, CSV upload, and mission list`
 
-- [ ] **2. You can open a mission, copy the message, and send it to Waiting**
+- [x] **2. You can open a mission, copy the message, and send it to Waiting**
   Becomes usable: Clicking a mission opens a pop-up with the details and message; copy works; checking off (in the pop-up or the list) moves it to a Waiting tab.
   Why now: This is the first half of the core loop, and it creates the waiting missions that the kernel acts on.
   PRD ref: `prd.md > Mission pop-up`, `prd.md > Waiting tab`

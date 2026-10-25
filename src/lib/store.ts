@@ -52,6 +52,22 @@ export function loadMissions(missions: Mission[]) {
   commit({ ...state, missions, batchIds: nextBatchIds(missions), batchDate: today() })
 }
 
+/** Moves an uncontacted mission to Waiting. Does nothing if it was already sent. */
+export function markSent(id: string) {
+  const mission = state.missions.find((m) => m.id === id)
+  if (!mission || mission.status !== 'uncontacted') return
+  commit({
+    ...state,
+    missions: state.missions.map((m) =>
+      m.id === id ? { ...m, status: 'waiting', sentAt: new Date().toISOString() } : m,
+    ),
+  })
+}
+
+export function getState(): AppState {
+  return state
+}
+
 export function useStore(): AppState {
   return useSyncExternalStore(
     (cb) => {
