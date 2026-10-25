@@ -29,7 +29,7 @@ Build mode: fast
   Learner check: Open a mission, copy the message and paste it somewhere to confirm, check it off, and see it in Waiting. Check another off straight from the list.
   Commit: `Add mission pop-up, copy, and Waiting tab`
 
-- [ ] **3. A No earns XP and a Yes earns a trophy badge (the kernel)**
+- [x] **3. A No earns XP and a Yes earns a trophy badge (the kernel)**
   Becomes usable: Pressing No or Yes on a waiting mission updates XP, level, the 2,000 counter, and history, and a Yes records a badge.
   Why now: This is the unique kernel. It comes before the polish so the heart of the idea works as early as possible.
   PRD ref: `prd.md > Logging a No`, `prd.md > Logging a Yes`, `prd.md > XP, levels, and the 2,000 counter`, `prd.md > History`

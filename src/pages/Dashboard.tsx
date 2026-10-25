@@ -5,11 +5,13 @@ import UploadPanel from '../components/dashboard/UploadPanel'
 import MissionLog from '../components/dashboard/MissionLog'
 import MissionPopup from '../components/dashboard/MissionPopup'
 import WaitingTab from '../components/dashboard/WaitingTab'
+import ResultsTab from '../components/dashboard/ResultsTab'
+import HudBar from '../components/dashboard/HudBar'
 
-type Tab = 'missions' | 'waiting'
+type Tab = 'missions' | 'waiting' | 'results'
 
 export default function Dashboard() {
-  const { missions, batchIds } = useStore()
+  const { missions, batchIds, totalXp, noCount, profile } = useStore()
   const [tab, setTab] = useState<Tab>('missions')
   const [openId, setOpenId] = useState<string | null>(null)
 
@@ -17,16 +19,21 @@ export default function Dashboard() {
     .map((id) => missions.find((m) => m.id === id))
     .filter((m): m is Mission => Boolean(m) && m!.status === 'uncontacted')
   const waiting = missions.filter((m) => m.status === 'waiting')
+  const results = missions
+    .filter((m) => m.status === 'no' || m.status === 'yes')
+    .sort((a, b) => (b.resolvedAt ?? '').localeCompare(a.resolvedAt ?? ''))
   // read the open mission from the store so the pop-up reflects check-offs immediately
   const openMission = missions.find((m) => m.id === openId) ?? null
 
   const tabs: [Tab, string][] = [
     ['missions', 'Missions'],
     ['waiting', `Waiting (${waiting.length})`],
+    ['results', `Results (${results.length})`],
   ]
 
   return (
     <main className="min-h-screen bg-black px-6 py-10 max-w-3xl mx-auto">
+      <HudBar callsign={profile.callsign} totalXp={totalXp} noCount={noCount} />
       <h1 className="font-display text-5xl mb-8">Mission log</h1>
       {missions.length === 0 ? (
         <div className="liquid-glass rounded-3xl p-10 text-center">
@@ -50,8 +57,10 @@ export default function Dashboard() {
           </nav>
           {tab === 'missions' ? (
             <MissionLog missions={batch} onOpen={(m) => setOpenId(m.id)} />
-          ) : (
+          ) : tab === 'waiting' ? (
             <WaitingTab missions={waiting} onOpen={(m) => setOpenId(m.id)} />
+          ) : (
+            <ResultsTab missions={results} />
           )}
           <div className="mt-8">
             <UploadPanel hasMissions />
