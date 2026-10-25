@@ -1,0 +1,11 @@
+/devpost/learner-profile.md
+.env
+.env.*
+!.env.example
+node_modules
+dist
+*.local
+node_modules
+dist
+*.local
+tsconfig.tsbuildinfo
