@@ -86,7 +86,7 @@ Build mode: fast
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
 
@@ -111,3 +111,4 @@ Activity mode:
 - Mission message: the learner's spreadsheet has a yes/no flag in `MESSAGE DRAFTED`, so the card showed the flag instead of the message. `pickMessage` in `src/lib/csv.ts` now takes the longest non-flag text from any message-like column.
 - Final kick-the-tires: the learner ran the full dashboard flow with their real spreadsheet. Upload, XP, level-up, and trophy all worked; the only issue was the card showing a yes/no flag instead of the message (message lives in the `Message` column). Fixed in `src/lib/csv.ts` across three commits, and the learner confirmed everything works.
 - Landing page rewritten again as a first-person portfolio page by Ace (Cole Slay), from the learner's second revision prompt: nav `Ace · Dream 2000`, single `Enter my cockpit` button, sections Hero, Why (optional `/images/ace.jpg`, rendered only if the file loads), The asks (three cards; example asks and the names-on-my-list count are read from the loaded sheet, with one learner-written fallback quote on the Access card), The mission, My system (three previews, Example-labelled), final CTA, footer with an empty `SOCIALS` config. `AudienceSection` removed, `HowItWorks` became `SystemSection`; new `AsksSection`, `MissionSection`, `Footer`. Because the sheet lives in each visitor's own browser, a public visitor sees the asks examples and list count only after loading a sheet; with none loaded those parts are omitted.
+- Final review: no outstanding fixes. The learner explicitly confirmed the PoC is ready to ship after the landing page rewrite.
