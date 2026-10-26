@@ -29,6 +29,7 @@ const FLAG = /^(yes|no|y|n|true|false|done|drafted|x|✓|✔)$/i
  * skip bare flags, and take the longest remaining text.
  */
 function pickMessage(record: Record<string, string>): string {
+  if (record['MESSAGE'] && !FLAG.test(record['MESSAGE'])) return record['MESSAGE']
   const candidates = Object.entries(record)
     .filter(([header]) => /MESSAGE|DRAFT|COPY|PITCH|TEMPLATE|SCRIPT/.test(header))
     .map(([, value]) => value)

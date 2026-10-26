@@ -20,6 +20,11 @@ describe('parseMissionCsv', () => {
     expect(result.ok && result.missions[0].message).toBe('Hi Acme, can we talk?')
   })
 
+  it('prefers an exact MESSAGE column over other message-like columns', () => {
+    const result = parseMissionCsv('COMPANY,MESSAGE,NEXT DRAFT NOTE\nAcme,Short hi,A much longer note that is not the message')
+    expect(result.ok && result.missions[0].message).toBe('Short hi')
+  })
+
   it('treats a missing priority as Entry', () => {
     const result = parseMissionCsv('COMPANY,PRIORITY\nAcme,')
     expect(result.ok && result.missions[0].priority).toBe('Entry')
