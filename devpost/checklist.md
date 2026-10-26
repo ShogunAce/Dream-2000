@@ -104,4 +104,4 @@ Activity mode:
 
 - Slice order changed (landing page and cockpit look now come before reward animations) — after trying slices 1-3 the learner expected the landing page and cockpit design first. Design and motion skills are used for slices 4 and 5.
 - Upload now accepts dragged-and-dropped files anywhere on the dashboard and Excel `.xlsx` files, in addition to CSV — requested by the learner. Added `read-excel-file` (the `xlsx` package on npm is stale) and `src/lib/importFile.ts`; Tailwind v4 needs no config file, so `tailwind.config.js` from the spec is not used.
-
+- ElevenLabs videos: hero and cockpit-bg generated and added; the intro generation was blocked by the video provider's content filter (no retry yet, a retry costs about $3). Featured, philosophy, and the two how-it-works card videos were deferred by the learner to save credits and use gradient fallbacks for now. Slice 7 stays open until the intro exists or the learner decides to skip it.
