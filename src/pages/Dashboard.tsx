@@ -13,6 +13,7 @@ import HudBar from '../components/dashboard/HudBar'
 import QuotePanel from '../components/dashboard/QuotePanel'
 import TrophyCase from '../components/dashboard/TrophyCase'
 import MissionStatement from '../components/dashboard/MissionStatement'
+import RewardEffects from '../components/dashboard/RewardEffects'
 
 type Tab = 'missions' | 'waiting' | 'results' | 'campaign'
 
@@ -117,6 +118,7 @@ export default function Dashboard() {
       </main>
 
       {openMission && <MissionPopup mission={openMission} onClose={() => setOpenId(null)} />}
+      <RewardEffects />
     </div>
   )
 }

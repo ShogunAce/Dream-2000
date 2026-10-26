@@ -59,7 +59,7 @@ Build mode: fast
   Learner check: Open the cockpit and tell me whether it feels like Andromeda crossed with Evangelion, hopecore, and personal. Edit your callsign and statement and reload.
   Commit: `Add cockpit layout, look, quote, and campaign overview`
 
-- [ ] **6. The rewards feel good: animations for sending, XP, level-ups, and trophies**
+- [x] **6. The rewards feel good: animations for sending, XP, level-ups, and trophies**
   Becomes usable: A mission slides to Waiting, XP counts up on a No, the level bar flashes on a level-up, and a Yes plays a trophy and badge animation with a trophy case.
   Why now: These are the "oh, that's cool" beats of the demo. They sit on top of working numbers, so they can't break them.
   PRD ref: `prd.md > Logging a No`, `prd.md > Logging a Yes`, `prd.md > Look and Feel`

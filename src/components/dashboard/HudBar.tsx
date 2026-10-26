@@ -1,5 +1,6 @@
 import { GOAL, levelFromXp } from '../../lib/xp'
 import { setProfile } from '../../lib/store'
+import CountUp from './CountUp'
 
 export default function HudBar({ callsign, totalXp, noCount }: { callsign: string; totalXp: number; noCount: number }) {
   const { level, xpIntoLevel, xpNeeded } = levelFromXp(totalXp)
@@ -32,13 +33,13 @@ export default function HudBar({ callsign, totalXp, noCount }: { callsign: strin
             />
           </div>
           <p className="font-hud text-xs tracking-wider text-white/50 mt-2">
-            {xpIntoLevel} / {xpNeeded} XP to level {level + 1}
+            <CountUp value={xpIntoLevel} /> / {xpNeeded} XP to level {level + 1}
           </p>
         </div>
         <div className="text-right">
           <span className="eyebrow">No's collected</span>
           <p className="font-display text-6xl md:text-7xl leading-none mt-3" data-testid="counter">
-            {noCount.toLocaleString()}
+            <CountUp value={noCount} />
             <span className="text-white/30 text-4xl md:text-5xl"> / {GOAL.toLocaleString()}</span>
           </p>
         </div>
