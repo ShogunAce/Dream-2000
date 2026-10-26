@@ -91,9 +91,9 @@ const steps = [
     glow: 'from-violet-500/30',
   },
   {
-    tag: 'Step 2',
+    tag: 'Step 2 · Coming soon',
     title: 'I learn from it',
-    text: "An AI debrief shows me the pattern behind my no's: the timing, the wording, who I asked.",
+    text: "Coming soon: an AI debrief that shows me the pattern behind my no's: the timing, the wording, who I asked.",
     preview: <InsightPreview />,
     glow: 'from-cyan-400/30',
   },

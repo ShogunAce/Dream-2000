@@ -96,6 +96,13 @@ export default function Dashboard() {
                 <p className="font-display text-4xl mb-2">No mission set yet</p>
                 <p className="text-sm text-white/50 mb-6">Load your spreadsheet and today's missions will appear here.</p>
                 <UploadPanel hasMissions={false} />
+                <p className="text-xs text-white/40 mt-6">
+                  Just looking around?{' '}
+                  <a href="/sample-missions.csv" download className="underline underline-offset-4 hover:text-white">
+                    Download the sample file
+                  </a>{' '}
+                  (fictional companies) and drop it here.
+                </p>
               </div>
             ) : (
               <>
