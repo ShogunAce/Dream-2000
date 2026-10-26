@@ -23,10 +23,13 @@ export default function LoopVideo({
   src,
   className = '',
   fade = false,
+  hideOnFail = false,
 }: {
   src: string
   className?: string
   fade?: boolean
+  /** Render nothing (instead of a gradient) if the file is missing. */
+  hideOnFail?: boolean
 }) {
   const ref = useRef<HTMLVideoElement>(null)
   const [failed, setFailed] = useState(false)
@@ -74,6 +77,7 @@ export default function LoopVideo({
   }, [fade, reduced])
 
   if (failed) {
+    if (hideOnFail) return null
     return (
       <div
         aria-hidden
