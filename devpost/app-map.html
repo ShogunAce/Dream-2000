@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dream 2000 app map</title>
+<style>
+  :root { --bg:#0b0b12; --fg:#ececf3; --muted:#9a9ab0; --card:#14141f; --line:#2a2a3d; --accent:#a78bfa; }
+  @media (prefers-color-scheme: light) { :root { --bg:#fafafc; --fg:#15151f; --muted:#5b5b70; --card:#fff; --line:#dcdce8; --accent:#6d4aff; } }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui, sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:32px 16px 64px; }
+  h1 { font-size:2rem; margin:0 0 4px; } h2 { margin-top:40px; font-size:1.25rem; }
+  p.sub { color:var(--muted); margin-top:0; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:12px 0; }
+  code { background:rgba(127,127,160,.18); padding:1px 6px; border-radius:6px; font-size:.9em; }
+  svg { width:100%; height:auto; } svg text { fill:var(--fg); font:13px system-ui, sans-serif; }
+  svg .box { fill:var(--card); stroke:var(--line); } svg .arrow { stroke:var(--accent); fill:none; stroke-width:2; }
+  details { border:1px solid var(--line); border-radius:12px; padding:10px 14px; margin:10px 0; background:var(--card); }
+  summary { cursor:pointer; font-weight:600; } summary:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  dt { font-weight:600; margin-top:12px; } dd { margin:2px 0 0; color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Dream 2000: app map</h1>
+  <p class="sub">A snapshot of the code at commit <code>acb2331</code>. It can drift as the code changes.</p>
+
+  <h2>What it is</h2>
+  <p>A browser app for counting outreach. You load a spreadsheet of companies and messages, copy a message, send it elsewhere, then log the answer. Each <strong>No</strong> earns XP toward 2,000 no's and each <strong>Yes</strong> earns a trophy. Everything is saved in your browser (<code>localStorage</code>); there is no server.</p>
+  <ul>
+    <li><strong>Landing page</strong> (<code>src/pages/Landing.tsx</code>): a first-person intro with a live counter.</li>
+    <li><strong>Dashboard</strong> (<code>src/pages/Dashboard.tsx</code>): the cockpit with missions, waiting, results and campaign tabs.</li>
+    <li><strong>Brain</strong> (<code>src/lib/</code>): spreadsheet parsing, the saved state, XP and rewards.</li>
+  </ul>
+
+  <h2>One action, end to end: load a sheet, open a card, copy the message</h2>
+  <svg viewBox="0 0 720 150" role="img" aria-label="Flow: upload panel, importFile, csv parser, store, mission popup">
+    <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a78bfa"/></marker></defs>
+    <rect class="box" x="4" y="45" width="120" height="60" rx="10"/><text x="64" y="72" text-anchor="middle">UploadPanel</text><text x="64" y="90" text-anchor="middle">drop / pick file</text>
+    <rect class="box" x="150" y="45" width="120" height="60" rx="10"/><text x="210" y="72" text-anchor="middle">importFile</text><text x="210" y="90" text-anchor="middle">CSV or xlsx</text>
+    <rect class="box" x="296" y="45" width="120" height="60" rx="10"/><text x="356" y="72" text-anchor="middle">csv.ts</text><text x="356" y="90" text-anchor="middle">rows to missions</text>
+    <rect class="box" x="442" y="45" width="120" height="60" rx="10"/><text x="502" y="72" text-anchor="middle">store.ts</text><text x="502" y="90" text-anchor="middle">saved in browser</text>
+    <rect class="box" x="588" y="45" width="128" height="60" rx="10"/><text x="652" y="72" text-anchor="middle">MissionPopup</text><text x="652" y="90" text-anchor="middle">shows + copies</text>
+    <path class="arrow" d="M124 75H148" marker-end="url(#a)"/><path class="arrow" d="M270 75H294" marker-end="url(#a)"/>
+    <path class="arrow" d="M416 75H440" marker-end="url(#a)"/><path class="arrow" d="M562 75H586" marker-end="url(#a)"/>
+  </svg>
+
+  <h2>Reference route (3 stops)</h2>
+  <details open><summary>1. The file comes in: <code>src/components/dashboard/UploadPanel.tsx</code></summary>
+    <p>Search for <code>onFile</code>. It hands the file to <code>readMissionFile</code> and, if that worked, calls <code>loadMissions</code>.</p></details>
+  <details open><summary>2. Rows become missions: <code>src/lib/csv.ts</code></summary>
+    <p>Search for <code>parseMissionRows</code> (column names to fields) and <code>pickMessage</code> (finds the real message even if a Yes/No column has a similar name). Tests for both live in <code>src/lib/csv.test.ts</code>.</p></details>
+  <details open><summary>3. The card shows it: <code>src/components/dashboard/MissionPopup.tsx</code></summary>
+    <p>Search for <code>mission.message</code>. The textarea displays it and the <code>copy</code> function writes it to the clipboard.</p></details>
+
+  <h2>To change this, start here</h2>
+  <dl>
+    <dt>Landing page words</dt><dd><code>src/components/landing/</code> (Hero, WhySection, AsksSection, MissionSection, SystemSection, FinalCtaSection, Footer). Social links: the <code>SOCIALS</code> list at the top of <code>Footer.tsx</code>.</dd>
+    <dt>XP amounts and level costs</dt><dd><code>src/lib/xp.ts</code></dd>
+    <dt>Which spreadsheet column fills which field</dt><dd><code>parseMissionRows</code> in <code>src/lib/csv.ts</code></dd>
+    <dt>Reward animations</dt><dd><code>src/lib/rewards.ts</code> and <code>src/components/dashboard/RewardEffects.tsx</code></dd>
+    <dt>Videos</dt><dd><code>public/videos/</code> (hero, cockpit-bg, intro). A missing video is skipped, not an error.</dd>
+  </dl>
+
+  <h2>A practice to reuse: test with real-shaped data early</h2>
+  <div class="card">
+    <p>The plan assumed the message lived in a column called <code>MESSAGE DRAFTED</code>, and the sample file we made up matched that, so every test passed. The real spreadsheet used that name for a Yes/No flag and put the text in a column called <code>Message</code>, so the first real upload showed "Yes" on the card.</p>
+    <p>The fix was <code>pickMessage</code> in <code>src/lib/csv.ts</code>, with tests in <code>src/lib/csv.test.ts</code> built from the failing shape. On another project: put one real, messy example of your input in the first slice, and write the test from it before trusting the invented sample.</p>
+  </div>
+
+  <h2>Run it again</h2>
+  <p><code>npm install</code>, then <code>npm run dev</code> and open the address it prints. <code>npm test</code> runs the checks. Sample file: <code>sample-data/demo-missions.csv</code> (fictional brands).</p>
+</main>
+</body>
+</html>
