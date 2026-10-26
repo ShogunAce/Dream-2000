@@ -81,8 +81,8 @@ Build mode: fast
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored: after slice 3 (the kernel works with plain visuals)
-- [ ] Final kick-the-tires exploration and feedback completed
+- [x] Early usable behavior explored: after slice 3 (the kernel works with plain visuals)
+- [x] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
 
@@ -109,3 +109,4 @@ Activity mode:
 
 
 - Mission message: the learner's spreadsheet has a yes/no flag in `MESSAGE DRAFTED`, so the card showed the flag instead of the message. `pickMessage` in `src/lib/csv.ts` now takes the longest non-flag text from any message-like column.
+- Final kick-the-tires: the learner ran the full dashboard flow with their real spreadsheet. Upload, XP, level-up, and trophy all worked; the only issue was the card showing a yes/no flag instead of the message (message lives in the `Message` column). Fixed in `src/lib/csv.ts` across three commits, and the learner confirmed everything works.
