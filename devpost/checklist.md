@@ -69,7 +69,7 @@ Build mode: fast
   Learner check: Log a No and a Yes and watch the animations. Tell me whether the trophy moment feels celebratory enough.
   Commit: `Add reward animations and trophy case`
 
-- [ ] **7. The cinematic videos and ship-entry animation are in**
+- [x] **7. The cinematic videos and ship-entry animation are in**
   Becomes usable: The landing page videos and the astronaut ship-entry intro (with a skip button) play, and the cockpit has a looping background.
   Why now: Generated media is the slowest and costliest step, and the app works without it thanks to the fallbacks, so it goes last.
   PRD ref: `prd.md > The Core Journey` (step 2), `prd.md > Look and Feel`
@@ -104,6 +104,8 @@ Activity mode:
 
 - Slice order changed (landing page and cockpit look now come before reward animations) — after trying slices 1-3 the learner expected the landing page and cockpit design first. Design and motion skills are used for slices 4 and 5.
 - Upload now accepts dragged-and-dropped files anywhere on the dashboard and Excel `.xlsx` files, in addition to CSV — requested by the learner. Added `read-excel-file` (the `xlsx` package on npm is stale) and `src/lib/importFile.ts`; Tailwind v4 needs no config file, so `tailwind.config.js` from the spec is not used.
-- ElevenLabs videos: hero and cockpit-bg generated and added; the intro generation was blocked by the video provider's content filter (no retry yet, a retry costs about $3). Featured, philosophy, and the two how-it-works card videos were deferred by the learner to save credits and use gradient fallbacks for now. Slice 7 stays open until the intro exists or the learner decides to skip it.
+- ElevenLabs videos: hero and cockpit-bg generated and added; the first intro generation was blocked by the video provider's content filter; the learner approved one retry (about $3) with a simpler cockpit-window prompt, and `public/videos/intro.mp4` is now in. Featured, philosophy, and the two how-it-works card videos were deferred by the learner to save credits and use gradient fallbacks for now. Slice 7 is complete with 3 of the 7 originally planned videos.
 - Landing page rewritten from the learner's revision prompt: hero text left-aligned over a darkened scrim with the video shifted right, a large live counter, one primary button, and the Why / How it works (three product previews) / Who it's for / closing sections replace the About, Featured video, Philosophy, and video-card sections. Those three section files were removed, and `spec.md > Landing Page` and the file structure are updated by this note. The landing copy mentions AI debriefs and a 10-second log form that the PoC dashboard does not build; the previews are labelled Preview / Example.
 
+
+- Mission message: the learner's spreadsheet has a yes/no flag in `MESSAGE DRAFTED`, so the card showed the flag instead of the message. `pickMessage` in `src/lib/csv.ts` now takes the longest non-flag text from any message-like column.
