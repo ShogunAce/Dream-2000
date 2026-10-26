@@ -90,15 +90,15 @@ Build mode: fast
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
-- [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
+- [x] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence:
-Route and stops:
-Edit outcome:
-Reflection:
-Activity mode:
+Activity and evidence: brief evidence-based recap (not a hands-on tour). The learner chose to move on to shipping. Evidence: the message-column bug, `pickMessage` in `src/lib/csv.ts`, its tests in `src/lib/csv.test.ts`.
+Route and stops: reference route in `devpost/app-map.html` (UploadPanel, csv.ts, MissionPopup); not toured interactively.
+Edit outcome: not applicable (learner moved on).
+Reflection: offered, not answered.
+Activity mode: recap.
 
 ## Revisions
 
@@ -112,3 +112,4 @@ Activity mode:
 - Final kick-the-tires: the learner ran the full dashboard flow with their real spreadsheet. Upload, XP, level-up, and trophy all worked; the only issue was the card showing a yes/no flag instead of the message (message lives in the `Message` column). Fixed in `src/lib/csv.ts` across three commits, and the learner confirmed everything works.
 - Landing page rewritten again as a first-person portfolio page by Ace (Cole Slay), from the learner's second revision prompt: nav `Ace · Dream 2000`, single `Enter my cockpit` button, sections Hero, Why (optional `/images/ace.jpg`, rendered only if the file loads), The asks (three cards; example asks and the names-on-my-list count are read from the loaded sheet, with one learner-written fallback quote on the Access card), The mission, My system (three previews, Example-labelled), final CTA, footer with an empty `SOCIALS` config. `AudienceSection` removed, `HowItWorks` became `SystemSection`; new `AsksSection`, `MissionSection`, `Footer`. Because the sheet lives in each visitor's own browser, a public visitor sees the asks examples and list count only after loading a sheet; with none loaded those parts are omitted.
 - Final review: no outstanding fixes. The learner explicitly confirmed the PoC is ready to ship after the landing page rewrite.
+- Landing page tweaks before shipping: the AI debrief step is labelled Coming soon, the example ask quotes were removed from the asks cards, and `public/sample-missions.csv` (the fictional sample) is linked from the empty dashboard so visitors can try it.
