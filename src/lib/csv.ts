@@ -5,7 +5,7 @@ export type CsvResult =
   | { ok: true; missions: Mission[] }
   | { ok: false; error: string }
 
-const BAD_FILE = "This file doesn't look like a mission set."
+export const BAD_FILE = "This file doesn't look like a mission set."
 
 function normalizePriority(value: string): Priority {
   const v = value.trim().toLowerCase()
@@ -14,41 +14,52 @@ function normalizePriority(value: string): Priority {
   return 'Entry'
 }
 
-export function parseMissionCsv(text: string): CsvResult {
-  let parsed: Papa.ParseResult<Record<string, string>>
-  try {
-    parsed = Papa.parse<Record<string, string>>(text, {
-      header: true,
-      skipEmptyLines: true,
-      transformHeader: (h) => h.trim().toUpperCase(),
+/** Turns any spreadsheet cell (text, number, date, empty) into trimmed text. */
+function cellText(cell: unknown): string {
+  if (cell === null || cell === undefined) return ''
+  if (cell instanceof Date) return cell.toISOString().slice(0, 10)
+  return String(cell).trim()
+}
+
+/**
+ * Builds missions from spreadsheet rows (first row = headers). Used for both CSV
+ * and Excel files, so the column mapping lives in one place.
+ */
+export function parseMissionRows(rows: unknown[][]): CsvResult {
+  if (rows.length < 2) return { ok: false, error: BAD_FILE }
+
+  const headers = rows[0].map((h) => cellText(h).toUpperCase())
+  if (!headers.includes('COMPANY')) return { ok: false, error: BAD_FILE }
+
+  const toRecord = (row: unknown[]) => {
+    const record: Record<string, string> = {}
+    headers.forEach((h, i) => {
+      if (h) record[h] = cellText(row[i])
     })
-  } catch {
-    return { ok: false, error: BAD_FILE }
+    return record
   }
+  const get = (record: Record<string, string>, key: string) => record[key] ?? ''
 
-  const fields = parsed.meta.fields ?? []
-  if (!fields.includes('COMPANY')) return { ok: false, error: BAD_FILE }
-
-  const get = (row: Record<string, string>, key: string) => (row[key] ?? '').trim()
-
-  const missions: Mission[] = parsed.data
-    .filter((row) => get(row, 'COMPANY') !== '')
-    .map((row, index) => {
-      const order = Number(get(row, '#')) || index + 1
+  const missions: Mission[] = rows
+    .slice(1)
+    .map(toRecord)
+    .filter((record) => get(record, 'COMPANY') !== '')
+    .map((record, index) => {
+      const order = Number(get(record, '#')) || index + 1
       return {
         id: `m${order}-${index}`,
         order,
-        company: get(row, 'COMPANY'),
-        priority: normalizePriority(get(row, 'PRIORITY')),
-        ask: get(row, 'THE ASK'),
-        message: get(row, 'MESSAGE DRAFTED'),
-        contactName: get(row, 'CONTACT NAME'),
-        contactTitle: get(row, 'CONTACT TITLE'),
-        channel: get(row, 'BEST CHANNEL'),
-        email: get(row, 'PARTNERSHIP EMAIL'),
-        linkedin: get(row, 'LINKEDIN URL'),
-        xHandle: get(row, 'X HANDLE'),
-        notes: get(row, 'NOTES'),
+        company: get(record, 'COMPANY'),
+        priority: normalizePriority(get(record, 'PRIORITY')),
+        ask: get(record, 'THE ASK'),
+        message: get(record, 'MESSAGE DRAFTED'),
+        contactName: get(record, 'CONTACT NAME'),
+        contactTitle: get(record, 'CONTACT TITLE'),
+        channel: get(record, 'BEST CHANNEL'),
+        email: get(record, 'PARTNERSHIP EMAIL'),
+        linkedin: get(record, 'LINKEDIN URL'),
+        xHandle: get(record, 'X HANDLE'),
+        notes: get(record, 'NOTES'),
         status: 'uncontacted' as const,
         xpEarned: 0,
       }
@@ -57,4 +68,13 @@ export function parseMissionCsv(text: string): CsvResult {
 
   if (missions.length === 0) return { ok: false, error: BAD_FILE }
   return { ok: true, missions }
+}
+
+export function parseMissionCsv(text: string): CsvResult {
+  try {
+    const parsed = Papa.parse<string[]>(text, { skipEmptyLines: true })
+    return parseMissionRows(parsed.data)
+  } catch {
+    return { ok: false, error: BAD_FILE }
+  }
 }

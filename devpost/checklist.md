@@ -39,15 +39,15 @@ Build mode: fast
   Learner check: Send three missions to Waiting, press No on two and Yes on one, and check that XP, level, the counter, and the history match what you expect.
   Commit: `Add XP, levels, No/Yes outcomes, and history`
 
-- [ ] **4. The rewards feel good: animations for sending, XP, level-ups, and trophies**
-  Becomes usable: A mission slides to Waiting, XP counts up on a No, the level bar flashes on a level-up, and a Yes plays a trophy and badge animation with a trophy case.
-  Why now: These are the "oh, that's cool" beats of the demo. They sit on top of working numbers, so they can't break them.
-  PRD ref: `prd.md > Logging a No`, `prd.md > Logging a Yes`, `prd.md > Look and Feel`
-  Spec ref: `spec.md > Reward Effects`, `spec.md > Look and Feel`, `spec.md > Cockpit Layout` (trophy case)
-  Build: framer-motion effects driven only by the results of store actions, a trophy case panel, reduced-motion support.
-  Verify (mechanical): Numbers are identical with animations on and off; clicking rapidly does not double count; build passes.
-  Learner check: Log a No and a Yes and watch the animations. Tell me whether the trophy moment feels celebratory enough.
-  Commit: `Add reward animations and trophy case`
+- [ ] **4. The landing page and first-visit flow work**
+  Becomes usable: `/` shows the landing page on the first visit, every "Open Dashboard" button goes to the dashboard, later visits skip straight to the dashboard, and `/welcome` always shows the landing page.
+  Why now: It's a framing layer around a finished product, and it's independent of the kernel.
+  PRD ref: `prd.md > Screens and Layout` (Landing page), `prd.md > Navigation`
+  Spec ref: `spec.md > Landing Page`, `spec.md > Routing and First-Visit Logic`; `references/prompt-reference.txt`
+  Build: All landing sections per the prompt, with gradient fallbacks for videos not yet generated, liquid-glass CSS, the live counter, and the first-visit redirect.
+  Verify (mechanical): Fresh storage shows the landing page with `0 / 2,000`; the visit flag then redirects `/` to `/dashboard`; `/welcome` always shows the landing page; build passes; no horizontal scroll at 380px.
+  Learner check: Open the app in a fresh private window and see the landing page, click through to the dashboard, then go back to `/` and confirm it skips the landing page.
+  Commit: `Add landing page and first-visit routing`
 
 - [ ] **5. The cockpit looks and feels like yours**
   Becomes usable: The dashboard has the full cockpit layout (top HUD, left tabs, center console, right column with the quote, trophy case, callsign and mission statement), the deep-space look, a daily quote, and the campaign overview with "Load next batch."
@@ -59,15 +59,15 @@ Build mode: fast
   Learner check: Open the cockpit and tell me whether it feels like Andromeda crossed with Evangelion, hopecore, and personal. Edit your callsign and statement and reload.
   Commit: `Add cockpit layout, look, quote, and campaign overview`
 
-- [ ] **6. The landing page and first-visit flow work**
-  Becomes usable: `/` shows the landing page on the first visit, every "Open Dashboard" button goes to the dashboard, later visits skip straight to the dashboard, and `/welcome` always shows the landing page.
-  Why now: It's a framing layer around a finished product, and it's independent of the kernel.
-  PRD ref: `prd.md > Screens and Layout` (Landing page), `prd.md > Navigation`
-  Spec ref: `spec.md > Landing Page`, `spec.md > Routing and First-Visit Logic`; `references/prompt-reference.txt`
-  Build: All landing sections per the prompt, with gradient fallbacks for videos not yet generated, liquid-glass CSS, the live counter, and the first-visit redirect.
-  Verify (mechanical): Fresh storage shows the landing page with `0 / 2,000`; the visit flag then redirects `/` to `/dashboard`; `/welcome` always shows the landing page; build passes; no horizontal scroll at 380px.
-  Learner check: Open the app in a fresh private window and see the landing page, click through to the dashboard, then go back to `/` and confirm it skips the landing page.
-  Commit: `Add landing page and first-visit routing`
+- [ ] **6. The rewards feel good: animations for sending, XP, level-ups, and trophies**
+  Becomes usable: A mission slides to Waiting, XP counts up on a No, the level bar flashes on a level-up, and a Yes plays a trophy and badge animation with a trophy case.
+  Why now: These are the "oh, that's cool" beats of the demo. They sit on top of working numbers, so they can't break them.
+  PRD ref: `prd.md > Logging a No`, `prd.md > Logging a Yes`, `prd.md > Look and Feel`
+  Spec ref: `spec.md > Reward Effects`, `spec.md > Look and Feel`, `spec.md > Cockpit Layout` (trophy case)
+  Build: framer-motion effects driven only by the results of store actions, a trophy case panel, reduced-motion support.
+  Verify (mechanical): Numbers are identical with animations on and off; clicking rapidly does not double count; build passes.
+  Learner check: Log a No and a Yes and watch the animations. Tell me whether the trophy moment feels celebratory enough.
+  Commit: `Add reward animations and trophy case`
 
 - [ ] **7. The cinematic videos and ship-entry animation are in**
   Becomes usable: The landing page videos and the astronaut ship-entry intro (with a skip button) play, and the cockpit has a looping background.
@@ -101,4 +101,7 @@ Reflection:
 Activity mode:
 
 ## Revisions
+
+- Slice order changed (landing page and cockpit look now come before reward animations) — after trying slices 1-3 the learner expected the landing page and cockpit design first. Design and motion skills are used for slices 4 and 5.
+- Upload now accepts dragged-and-dropped files anywhere on the dashboard and Excel `.xlsx` files, in addition to CSV — requested by the learner. Added `read-excel-file` (the `xlsx` package on npm is stale) and `src/lib/importFile.ts`; Tailwind v4 needs no config file, so `tailwind.config.js` from the spec is not used.
 
