@@ -15,6 +15,11 @@ describe('parseMissionCsv', () => {
     expect(result.missions.every((m) => m.status === 'uncontacted')).toBe(true)
   })
 
+  it('uses the real message when MESSAGE DRAFTED is only a yes/no flag', () => {
+    const result = parseMissionCsv('COMPANY,MESSAGE DRAFTED,MESSAGE\nAcme,Yes,"Hi Acme, can we talk?"')
+    expect(result.ok && result.missions[0].message).toBe('Hi Acme, can we talk?')
+  })
+
   it('treats a missing priority as Entry', () => {
     const result = parseMissionCsv('COMPANY,PRIORITY\nAcme,')
     expect(result.ok && result.missions[0].priority).toBe('Entry')

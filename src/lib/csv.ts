@@ -21,6 +21,21 @@ function cellText(cell: unknown): string {
   return String(cell).trim()
 }
 
+const FLAG = /^(yes|no|y|n|true|false|done|drafted|x|✓|✔)$/i
+
+/**
+ * Finds the text to copy. "MESSAGE DRAFTED" is sometimes a yes/no flag with the real
+ * message in another column (MESSAGE, DRAFT, ...), so look at every message-like column,
+ * skip bare flags, and take the longest remaining text.
+ */
+function pickMessage(record: Record<string, string>): string {
+  const candidates = Object.entries(record)
+    .filter(([header]) => /MESSAGE|DRAFT|COPY|PITCH|TEMPLATE|SCRIPT/.test(header))
+    .map(([, value]) => value)
+    .filter((value) => value && !FLAG.test(value))
+  return candidates.sort((a, b) => b.length - a.length)[0] ?? ''
+}
+
 /**
  * Builds missions from spreadsheet rows (first row = headers). Used for both CSV
  * and Excel files, so the column mapping lives in one place.
@@ -52,7 +67,7 @@ export function parseMissionRows(rows: unknown[][]): CsvResult {
         company: get(record, 'COMPANY'),
         priority: normalizePriority(get(record, 'PRIORITY')),
         ask: get(record, 'THE ASK'),
-        message: get(record, 'MESSAGE DRAFTED'),
+        message: pickMessage(record),
         contactName: get(record, 'CONTACT NAME'),
         contactTitle: get(record, 'CONTACT TITLE'),
         channel: get(record, 'BEST CHANNEL'),
