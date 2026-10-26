@@ -1,9 +1,11 @@
 import Aurora from '../components/Aurora'
 import Hero from '../components/landing/Hero'
 import WhySection from '../components/landing/WhySection'
-import HowItWorks from '../components/landing/HowItWorks'
-import AudienceSection from '../components/landing/AudienceSection'
+import AsksSection from '../components/landing/AsksSection'
+import MissionSection from '../components/landing/MissionSection'
+import SystemSection from '../components/landing/SystemSection'
 import FinalCtaSection from '../components/landing/FinalCtaSection'
+import Footer from '../components/landing/Footer'
 
 export default function Landing() {
   return (
@@ -12,12 +14,11 @@ export default function Landing() {
       <div className="relative">
         <Hero />
         <WhySection />
-        <HowItWorks />
-        <AudienceSection />
+        <AsksSection />
+        <MissionSection />
+        <SystemSection />
         <FinalCtaSection />
-        <footer className="pb-10 text-center">
-          <p className="text-white/40 text-xs">Dream 2000 · Built for the Build With AI: Basics hackathon.</p>
-        </footer>
+        <Footer />
       </div>
     </div>
   )

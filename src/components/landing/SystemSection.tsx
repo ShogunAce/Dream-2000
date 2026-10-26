@@ -9,14 +9,14 @@ const Tag = ({ children }: { children: ReactNode }) => (
 
 function LogPreview() {
   const fields = [
-    ['What you asked', 'Sponsor my next build?'],
-    ['Who said no', 'A company'],
+    ['Company', 'Who I asked'],
+    ['Their response', 'Yes, no, or silence'],
     ['How it felt', 'Stung, then fine'],
   ]
   return (
     <div className="p-5" aria-hidden>
       <div className="flex items-center justify-between mb-3">
-        <p className="text-xs text-white/60">Log a no</p>
+        <p className="text-xs text-white/60">Log an answer</p>
         <Tag>Preview</Tag>
       </div>
       <div className="space-y-2">
@@ -48,7 +48,7 @@ function InsightPreview() {
       </div>
       <div className="rounded-xl bg-white/5 p-4 space-y-3">
         <p className="text-xs text-white/80 leading-relaxed">
-          Your no's share one thing: the ask was broad. Name one specific outcome and who it helps.
+          My no's share one thing: the ask was broad. Name one specific outcome and who it helps.
         </p>
         <div className="border-t border-white/10 pt-3">
           <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Rewritten ask</p>
@@ -65,7 +65,7 @@ function ProgressPreview() {
   return (
     <div className="p-5" aria-hidden>
       <div className="flex items-center justify-between mb-3">
-        <p className="text-xs text-white/60">Your progress</p>
+        <p className="text-xs text-white/60">My progress</p>
         <Tag>Preview</Tag>
       </div>
       <svg viewBox="0 0 240 120" className="w-full h-auto" role="img" aria-label="Empty graph: 0 no's logged yet">
@@ -85,34 +85,34 @@ function ProgressPreview() {
 const steps = [
   {
     tag: 'Step 1',
-    title: 'Log the no in 10 seconds',
-    text: 'What you asked, who said no, and how it felt. Nothing else.',
+    title: 'I log the answer',
+    text: 'The company, what they said, and how it felt. Nothing else.',
     preview: <LogPreview />,
     glow: 'from-violet-500/30',
   },
   {
     tag: 'Step 2',
-    title: 'Get the pattern, not just the sting',
-    text: 'AI reads your recent no\'s and tells you what they have in common: the timing, the wording, the audience.',
+    title: 'I learn from it',
+    text: "An AI debrief shows me the pattern behind my no's: the timing, the wording, who I asked.",
     preview: <InsightPreview />,
     glow: 'from-cyan-400/30',
   },
   {
     tag: 'Step 3',
-    title: 'Send a better ask next time',
-    text: 'Each debrief ends with a rewritten ask you can use right away. The counter climbs, your yes-rate becomes visible.',
+    title: 'I ask better',
+    text: 'Each debrief ends with a sharper ask. The count climbs and my yes-rate gets visible.',
     preview: <ProgressPreview />,
     glow: 'from-amber-300/30',
   },
 ]
 
-export default function HowItWorks() {
+export default function SystemSection() {
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
   const reduced = useReducedMotion()
 
   return (
-    <section id="how-it-works" ref={ref} className="py-16 md:py-24 px-6 overflow-hidden">
+    <section id="system" ref={ref} className="py-16 md:py-24 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 30 }}
@@ -120,10 +120,12 @@ export default function HowItWorks() {
           transition={{ duration: 0.7 }}
           className="flex items-end justify-between mb-10"
         >
-          <h2 className="text-3xl md:text-5xl text-white tracking-tight">
-            How it <em className="font-display italic cosmic-text">works</em>
-          </h2>
-          <p className="hidden md:block text-white/40 text-sm">Three steps, one loop</p>
+          <div>
+            <p className="text-white/40 text-sm tracking-widest uppercase mb-4">How I&apos;m keeping score</p>
+            <h2 className="text-3xl md:text-5xl text-white tracking-tight">
+              My <em className="font-display italic cosmic-text">system</em>
+            </h2>
+          </div>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {steps.map((s, i) => (
@@ -143,6 +145,7 @@ export default function HowItWorks() {
             </motion.div>
           ))}
         </div>
+        <p className="text-white/50 text-sm mt-8">I built this tracker for myself, as the cockpit for this challenge.</p>
       </div>
     </section>
   )

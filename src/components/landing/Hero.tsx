@@ -16,6 +16,12 @@ function readCount(): number {
 
 const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
+const links: [string, string][] = [
+  ['why', 'Why'],
+  ['asks', 'The asks'],
+  ['mission', 'The mission'],
+]
+
 export default function Hero() {
   const [count, setCount] = useState(readCount)
 
@@ -49,26 +55,25 @@ export default function Hero() {
         <div className="liquid-glass rounded-full max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center">
             <Globe size={24} className="text-white" />
-            <span className="text-white font-semibold text-lg ml-2">Dream 2000</span>
+            <span className="text-white font-semibold text-lg ml-2">Ace · Dream 2000</span>
             <div className="hidden md:flex items-center gap-8 ml-8">
-              <button onClick={() => scrollTo('why')} className="text-white/80 hover:text-white text-sm font-medium">
-                Why
-              </button>
-              <button onClick={() => scrollTo('how-it-works')} className="text-white/80 hover:text-white text-sm font-medium">
-                How it works
-              </button>
+              {links.map(([id, label]) => (
+                <button key={id} onClick={() => scrollTo(id)} className="text-white/80 hover:text-white text-sm font-medium">
+                  {label}
+                </button>
+              ))}
             </div>
           </div>
-          <Link to="/dashboard" className="liquid-glass rounded-full px-6 py-2 text-white text-sm font-medium">
-            Open Dashboard
+          <Link to="/dashboard" className="liquid-glass rounded-full px-6 py-2 text-white text-sm font-medium whitespace-nowrap">
+            Enter my cockpit
           </Link>
         </div>
       </nav>
 
       <div className="relative z-10 flex-1 flex flex-col justify-end px-6 pt-16 pb-14 md:pb-20 md:pl-[8vw] max-w-7xl w-full mx-auto text-center md:text-left items-center md:items-start">
-        <p className="text-white/50 text-xs tracking-widest uppercase mb-4">Dream 2000 · The 2,000-No Challenge</p>
+        <p className="text-white/50 text-xs tracking-widest uppercase mb-4">Ace (Cole Slay) · Dream 2000</p>
         <h1 className="font-display text-6xl md:text-8xl text-white tracking-tight leading-[0.95] mb-8">
-          Every no is a <em className="italic cosmic-text">rep</em>.
+          I'm chasing 2,000 <em className="italic cosmic-text">No's</em>.
         </h1>
 
         <div className="mb-6 w-full max-w-md" data-testid="hero-counter">
@@ -79,15 +84,20 @@ export default function Hero() {
           <div className="h-px bg-white/15 mt-4">
             <div className="h-px bg-white" style={{ width: `${pct}%` }} />
           </div>
-          <p className="text-white/50 text-xs mt-2">No's logged</p>
+          <p className="text-white/50 text-xs mt-2">my no's so far</p>
         </div>
 
-        <p className="text-white/80 text-base md:text-lg max-w-md mb-8">
-          Everything I'm building runs on one skill: asking. Dream 2000 logs every rejection, debriefs it with AI, and
-          turns the pattern into your next, better ask.
+        <p className="text-white/80 text-base md:text-lg max-w-xl mb-8">
+          I'm Ace. I'm building a think tank to take on problems bigger than any one company. So I'm asking the people
+          and companies who can help for access, tools and a seat at the table, and I'm counting every answer. The no's
+          most of all.
         </p>
-        <OpenDashboardButton />
-        <p className="text-white/50 text-xs mt-3">No account. Your data stays on this device.</p>
+        <div className="flex flex-col sm:flex-row items-center gap-5">
+          <OpenDashboardButton />
+          <button onClick={() => scrollTo('why')} className="text-white/70 hover:text-white text-sm underline underline-offset-4">
+            Read why I'm doing this
+          </button>
+        </div>
       </div>
     </section>
   )

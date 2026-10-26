@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
-export default function OpenDashboardButton({ label = 'Log my first no' }: { label?: string }) {
+export default function OpenDashboardButton({ label = 'Enter my cockpit' }: { label?: string }) {
   return (
     <Link
       to="/dashboard"
