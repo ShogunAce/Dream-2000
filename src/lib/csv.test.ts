@@ -25,6 +25,11 @@ describe('parseMissionCsv', () => {
     expect(result.ok && result.missions[0].message).toBe('Short hi')
   })
 
+  it('finds the real message when MESSAGE appears twice and the first is a flag', () => {
+    const result = parseMissionCsv('COMPANY,MESSAGE,OTHER,MESSAGE\nAcme,Yes,x,"Hi Acme, can we talk?"')
+    expect(result.ok && result.missions[0].message).toBe('Hi Acme, can we talk?')
+  })
+
   it('treats a missing priority as Entry', () => {
     const result = parseMissionCsv('COMPANY,PRIORITY\nAcme,')
     expect(result.ok && result.missions[0].priority).toBe('Entry')

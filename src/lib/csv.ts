@@ -28,13 +28,14 @@ const FLAG = /^(yes|no|y|n|true|false|done|drafted|x|✓|✔)$/i
  * message in another column (MESSAGE, DRAFT, ...), so look at every message-like column,
  * skip bare flags, and take the longest remaining text.
  */
-function pickMessage(record: Record<string, string>): string {
-  if (record['MESSAGE'] && !FLAG.test(record['MESSAGE'])) return record['MESSAGE']
-  const candidates = Object.entries(record)
-    .filter(([header]) => /MESSAGE|DRAFT|COPY|PITCH|TEMPLATE|SCRIPT/.test(header))
-    .map(([, value]) => value)
-    .filter((value) => value && !FLAG.test(value))
-  return candidates.sort((a, b) => b.length - a.length)[0] ?? ''
+function pickMessage(headers: string[], row: unknown[]): string {
+  const cells = headers.map((header, i) => ({ header, value: cellText(row[i]) }))
+  const usable = cells.filter(({ value }) => value && !FLAG.test(value))
+  const exact = usable.filter(({ header }) => header === 'MESSAGE')
+  const pool = exact.length
+    ? exact
+    : usable.filter(({ header }) => /MESSAGE|DRAFT|COPY|PITCH|TEMPLATE|SCRIPT/.test(header))
+  return pool.map(({ value }) => value).sort((x, y) => y.length - x.length)[0] ?? ''
 }
 
 /**
@@ -58,9 +59,9 @@ export function parseMissionRows(rows: unknown[][]): CsvResult {
 
   const missions: Mission[] = rows
     .slice(1)
-    .map(toRecord)
-    .filter((record) => get(record, 'COMPANY') !== '')
-    .map((record, index) => {
+    .map((row) => ({ record: toRecord(row), row }))
+    .filter(({ record }) => get(record, 'COMPANY') !== '')
+    .map(({ record, row }, index) => {
       const order = Number(get(record, '#')) || index + 1
       return {
         id: `m${order}-${index}`,
@@ -68,7 +69,7 @@ export function parseMissionRows(rows: unknown[][]): CsvResult {
         company: get(record, 'COMPANY'),
         priority: normalizePriority(get(record, 'PRIORITY')),
         ask: get(record, 'THE ASK'),
-        message: pickMessage(record),
+        message: pickMessage(headers, row),
         contactName: get(record, 'CONTACT NAME'),
         contactTitle: get(record, 'CONTACT TITLE'),
         channel: get(record, 'BEST CHANNEL'),
