@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useStore } from '../lib/store'
 import type { Mission } from '../types'
 import UploadPanel from '../components/dashboard/UploadPanel'
@@ -33,6 +34,9 @@ export default function Dashboard() {
 
   return (
     <main className="min-h-screen bg-black px-6 py-10 max-w-3xl mx-auto">
+      <Link to="/welcome" className="font-hud text-xs uppercase tracking-widest text-white/40 hover:text-white">
+        ← Landing page
+      </Link>
       <HudBar callsign={profile.callsign} totalXp={totalXp} noCount={noCount} />
       <h1 className="font-display text-5xl mb-8">Mission log</h1>
       {missions.length === 0 ? (

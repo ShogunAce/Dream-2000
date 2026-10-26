@@ -39,7 +39,7 @@ Build mode: fast
   Learner check: Send three missions to Waiting, press No on two and Yes on one, and check that XP, level, the counter, and the history match what you expect.
   Commit: `Add XP, levels, No/Yes outcomes, and history`
 
-- [ ] **4. The landing page and first-visit flow work**
+- [x] **4. The landing page and first-visit flow work**
   Becomes usable: `/` shows the landing page on the first visit, every "Open Dashboard" button goes to the dashboard, later visits skip straight to the dashboard, and `/welcome` always shows the landing page.
   Why now: It's a framing layer around a finished product, and it's independent of the kernel.
   PRD ref: `prd.md > Screens and Layout` (Landing page), `prd.md > Navigation`
