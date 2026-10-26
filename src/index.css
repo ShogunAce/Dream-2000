@@ -14,6 +14,13 @@ body { background: #000; color: #fff; margin: 0; font-family: system-ui, sans-se
 }
 
 @layer components {
+  /* the one italic word per heading gets the cosmic gradient */
+  .cosmic-text {
+    background: linear-gradient(100deg, #fcd34d 0%, #f0abfc 45%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   /* Double-bezel: an outer machined tray holding an inner glass core (cockpit panels). */
   .bezel-shell {
     background: rgba(255, 255, 255, 0.03);

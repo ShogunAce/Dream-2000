@@ -8,12 +8,12 @@ export default function WhySection() {
   const from = reduced ? false : { opacity: 0, y: 30 }
 
   return (
-    <section id="why" ref={ref} className="bg-black py-16 md:py-24 px-6 overflow-hidden">
+    <section id="why" ref={ref} className="py-16 md:py-24 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
         <motion.div initial={from} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
           <p className="text-white/40 text-sm tracking-widest uppercase mb-6">Why this exists</p>
           <h2 className="text-4xl md:text-6xl text-white leading-[1.1] tracking-tight">
-            You can't improve at asking if you never count the <em className="font-display italic">no's</em>.
+            You can't improve at asking if you never count the <em className="font-display italic cosmic-text">no's</em>.
           </h2>
         </motion.div>
         <motion.div

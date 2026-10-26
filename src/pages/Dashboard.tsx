@@ -16,6 +16,7 @@ import MissionStatement from '../components/dashboard/MissionStatement'
 import RewardEffects from '../components/dashboard/RewardEffects'
 import EntryAnimation from '../components/dashboard/EntryAnimation'
 import LoopVideo from '../components/landing/LoopVideo'
+import Aurora from '../components/Aurora'
 
 type Tab = 'missions' | 'waiting' | 'results' | 'campaign'
 
@@ -48,17 +49,15 @@ export default function Dashboard() {
 
   return (
     <div className="relative min-h-[100dvh] bg-[#050505] text-white overflow-x-hidden">
-      {/* aurora: fixed glowing orbs behind everything */}
-      <div aria-hidden className="pointer-events-none fixed inset-0">
+      {/* cosmic atmosphere behind everything */}
+      <div className="fixed inset-0 pointer-events-none">
         <LoopVideo
           src="/videos/cockpit-bg.mp4"
           hideOnFail
           className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
-        <div className="absolute -top-40 -left-32 size-[34rem] rounded-full bg-violet-600/20 blur-[140px]" />
-        <div className="absolute top-1/3 -right-40 size-[30rem] rounded-full bg-cyan-400/15 blur-[140px]" />
-        <div className="absolute -bottom-48 left-1/4 size-[36rem] rounded-full bg-amber-400/15 blur-[160px]" />
       </div>
+      <Aurora fixed />
 
       <main className="relative mx-auto max-w-7xl px-4 md:px-8 py-6 md:py-10 space-y-6">
         <div className="flex items-center justify-between">

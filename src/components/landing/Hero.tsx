@@ -68,7 +68,7 @@ export default function Hero() {
       <div className="relative z-10 flex-1 flex flex-col justify-end px-6 pt-16 pb-14 md:pb-20 md:pl-[8vw] max-w-7xl w-full mx-auto text-center md:text-left items-center md:items-start">
         <p className="text-white/50 text-xs tracking-widest uppercase mb-4">Dream 2000 · The 2,000-No Challenge</p>
         <h1 className="font-display text-6xl md:text-8xl text-white tracking-tight leading-[0.95] mb-8">
-          Every no is a <em className="italic">rep</em>.
+          Every no is a <em className="italic cosmic-text">rep</em>.
         </h1>
 
         <div className="mb-6 w-full max-w-md" data-testid="hero-counter">

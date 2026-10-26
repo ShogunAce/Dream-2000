@@ -88,18 +88,21 @@ const steps = [
     title: 'Log the no in 10 seconds',
     text: 'What you asked, who said no, and how it felt. Nothing else.',
     preview: <LogPreview />,
+    glow: 'from-violet-500/30',
   },
   {
     tag: 'Step 2',
     title: 'Get the pattern, not just the sting',
     text: 'AI reads your recent no\'s and tells you what they have in common: the timing, the wording, the audience.',
     preview: <InsightPreview />,
+    glow: 'from-cyan-400/30',
   },
   {
     tag: 'Step 3',
     title: 'Send a better ask next time',
     text: 'Each debrief ends with a rewritten ask you can use right away. The counter climbs, your yes-rate becomes visible.',
     preview: <ProgressPreview />,
+    glow: 'from-amber-300/30',
   },
 ]
 
@@ -109,7 +112,7 @@ export default function HowItWorks() {
   const reduced = useReducedMotion()
 
   return (
-    <section id="how-it-works" ref={ref} className="bg-black py-16 md:py-24 px-6 overflow-hidden">
+    <section id="how-it-works" ref={ref} className="py-16 md:py-24 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 30 }}
@@ -118,7 +121,7 @@ export default function HowItWorks() {
           className="flex items-end justify-between mb-10"
         >
           <h2 className="text-3xl md:text-5xl text-white tracking-tight">
-            How it <em className="font-display italic">works</em>
+            How it <em className="font-display italic cosmic-text">works</em>
           </h2>
           <p className="hidden md:block text-white/40 text-sm">Three steps, one loop</p>
         </motion.div>
@@ -129,9 +132,9 @@ export default function HowItWorks() {
               initial={reduced ? false : { opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: i * 0.15 }}
-              className="liquid-glass rounded-3xl flex flex-col"
+              className={`liquid-glass rounded-3xl flex flex-col bg-linear-to-b ${s.glow} to-transparent`}
             >
-              <div className="m-3 rounded-2xl bg-black/50">{s.preview}</div>
+              <div className="m-3 rounded-2xl bg-black/60">{s.preview}</div>
               <div className="px-6 pb-7 pt-3">
                 <p className="uppercase tracking-widest text-white/40 text-xs mb-3">{s.tag}</p>
                 <h3 className="text-white text-xl tracking-tight mb-2">{s.title}</h3>

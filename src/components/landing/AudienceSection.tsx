@@ -15,12 +15,12 @@ export default function AudienceSection() {
   const reduced = useReducedMotion()
 
   return (
-    <section ref={ref} className="bg-black py-16 md:py-24 px-6 overflow-hidden">
+    <section ref={ref} className="py-16 md:py-24 px-6 overflow-hidden">
       <motion.div
         initial={reduced ? false : { opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="liquid-glass rounded-3xl max-w-6xl mx-auto p-8 md:p-12"
+        className="liquid-glass rounded-3xl max-w-6xl mx-auto p-8 md:p-12 bg-linear-to-br from-violet-500/20 via-transparent to-cyan-400/20"
       >
         <p className="text-white/40 text-sm tracking-widest uppercase mb-8">Built for people who have to ask</p>
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-6">
