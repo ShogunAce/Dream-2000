@@ -49,7 +49,7 @@ Build mode: fast
   Learner check: Open the app in a fresh private window and see the landing page, click through to the dashboard, then go back to `/` and confirm it skips the landing page.
   Commit: `Add landing page and first-visit routing`
 
-- [ ] **5. The cockpit looks and feels like yours**
+- [x] **5. The cockpit looks and feels like yours**
   Becomes usable: The dashboard has the full cockpit layout (top HUD, left tabs, center console, right column with the quote, trophy case, callsign and mission statement), the deep-space look, a daily quote, and the campaign overview with "Load next batch."
   Why now: The structure and numbers are proven, so now the look can be applied to what exists.
   PRD ref: `prd.md > Screens and Layout`, `prd.md > Look and Feel`, `prd.md > Daily quote`, `prd.md > Campaign overview`

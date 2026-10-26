@@ -7,7 +7,7 @@ export default function ResultsTab({ missions }: { missions: Mission[] }) {
   return (
     <ul className="space-y-3">
       {missions.map((m) => (
-        <li key={m.id} className="liquid-glass rounded-2xl px-5 py-4 flex items-center justify-between gap-4">
+        <li key={m.id} className="cockpit-row px-5 py-4 flex items-center justify-between gap-4">
           <span>
             <span className="block font-hud text-lg">{m.company}</span>
             <span className="block text-white/50 text-sm">{m.ask}</span>

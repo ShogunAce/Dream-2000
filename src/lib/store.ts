@@ -65,6 +65,15 @@ export function markSent(id: string) {
   })
 }
 
+/** Starts the next day's batch: the next uncontacted missions in spreadsheet order. */
+export function loadNextBatch() {
+  commit({ ...state, batchIds: nextBatchIds(state.missions), batchDate: today() })
+}
+
+export function setProfile(patch: Partial<AppState['profile']>) {
+  commit({ ...state, profile: { ...state.profile, ...patch } })
+}
+
 export interface OutcomeResult {
   outcome: 'no' | 'yes'
   xp: number

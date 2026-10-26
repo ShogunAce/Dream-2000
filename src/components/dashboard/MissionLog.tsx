@@ -14,7 +14,7 @@ export default function MissionLog({
   return (
     <ul className="space-y-3">
       {missions.map((m) => (
-        <li key={m.id} className="liquid-glass rounded-2xl flex items-center gap-4 px-5 py-4">
+        <li key={m.id} className="cockpit-row flex items-center gap-4 px-5 py-4">
           <input
             type="checkbox"
             aria-label={`Mark ${m.company} as sent`}
